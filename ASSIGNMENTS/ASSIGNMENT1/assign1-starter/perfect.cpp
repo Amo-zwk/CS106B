@@ -151,6 +151,33 @@ PROVIDED_TEST("Time trials of findPerfects on doubling input sizes") {
 
 // TODO: add your student test cases here
 
+//现在轮到你了。根据示例的结果推测，尝试添加 4 个TIME_OPERATION 测试案例。要求是，每个测试案例的数据量翻倍，并保证最后一个测试案例的执行时间在一分钟左右。
+PROVIDED_TEST("set up your time trials to make 4 runs on increasing sizes, doubling the size each time, and ending with the last run on the maximum size") {
+    TIME_OPERATION(10000, findPerfects(10000));
+    TIME_OPERATION(20000, findPerfects(20000));
+    TIME_OPERATION(40000, findPerfects(40000));
+    TIME_OPERATION(40000, findPerfects(80000));
+}
+
+//为你的函数smarterSum添加三个测试案例
+PROVIDED_TEST("Confirm divisorSum of small inputs") {
+    EXPECT_EQUAL(smarterSum(1), 0);
+    EXPECT_EQUAL(smarterSum(6), 6);
+    EXPECT_EQUAL(smarterSum(28), 28);
+}
+
+//添加一个 STUDENT_TEST 测试案例，使用一组 TIME_OPERATION 来测试findPerfectsSmarter。要求每次翻倍数据量，测试 4 次，并保证最后一次的运行时间为 1 分钟左右。
+PROVIDED_TEST("Time trials of findPerfects on doubling input sizes") {
+    TIME_OPERATION(10000, findPerfectsSmarter(10000));
+    TIME_OPERATION(20000, findPerfectsSmarter(20000));
+    TIME_OPERATION(40000, findPerfectsSmarter(40000));
+    TIME_OPERATION(80000, findPerfectsSmarter(80000));
+}
+
+//添加至少 4 个测试案例，确认你的 findNthPerfectEuclid 函数正确工作。
 PROVIDED_TEST("Confirm the first perfect number is 6") {
-    EXPECT(findNthPerfectEuclid(1));
+    EXPECT(findNthPerfectEuclid(1)==6);
+    EXPECT(findNthPerfectEuclid(2)==28);
+    EXPECT(findNthPerfectEuclid(3)==496);
+    EXPECT(findNthPerfectEuclid(4)==8128);
 }
