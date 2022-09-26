@@ -25,24 +25,86 @@ using namespace std;
  * replace it with a description of the bug you fixed.
  */
 string removeNonLetters(string s) {
-    string result = charToString(s[0]);
-    for (int i = 1; i < s.length(); i++) {
+    string str = "";
+    for (int i = 0; i < s.length(); i++) {
         if (isalpha(s[i])) {
-            result += s[i];
+            str += s[i];
         }
     }
-    return result;
+    return str;
 }
 
 
 /* TODO: Replace this comment with a descriptive function
  * header comment.
  */
-string soundex(string s) {
-    /* TODO: Fill in this function. */
-    return "";
-}
 
+string soundex(string s) {
+
+
+    string ans = "", str = "";
+    vector<char> res,result;
+
+    s = removeNonLetters(s);
+    s = toUpperCase(s);
+
+    for(int i = 0; i < s.size() ; i ++) {
+        if(s[i] == 'A' or s[i] == 'E' or s[i] == 'I' or s[i] == 'O' or s[i] == 'U' or s[i] == 'H' or s[i] == 'W' or s[i] == 'Y') {
+            ans += '0';
+        }
+        else if(s[i] == 'C' or s[i] == 'G' or s[i] == 'J' or s[i] == 'K' or s[i] == 'Q' or s[i] == 'S' or s[i] == 'X' or s[i] == 'Z') {
+            ans += '2';
+        }
+        else if(s[i] == 'B' or s[i] == 'F' or s[i] == 'P' or s[i] == 'V') {
+            ans += '1';
+        }
+        else if(s[i] == 'D' or s[i] == 'T') {
+            ans += '3';
+        }
+        else if(s[i] == 'N' or s[i] == 'M') {
+            ans += '5';
+        }
+        else if(s[i] == 'L') {
+            ans += '4';
+        }
+        else if(s[i] == 'R'){
+            ans += '6';
+        }
+    }
+
+    res.push_back(ans[0]);
+
+    for(int i = 0; i < ans.size()-1; i++) {
+        if(ans[i] == ans[i+1]) {
+            continue;
+        }
+        else {
+            res.push_back(ans[i+1]);
+        }
+    }
+
+    result.push_back(s[0]);
+
+    for(int i = 1; i < res.size(); i ++) {
+        if(result.size() < 4) {
+        if(res[i] != '0') {
+            result.push_back(res[i]);
+        }
+        }
+    }
+
+    int len = result.size();
+
+    for(int i = 0; i < 4 - len; i++) {
+            result.push_back('0');
+    }
+
+    for(int i = 0; i < result.size(); i ++) {
+        str.push_back(result[i]);
+    }
+
+    return str;
+}
 
 /* TODO: Replace this comment with a descriptive function
  * header comment.
@@ -70,6 +132,15 @@ void soundexSearch(string filepath) {
 
 
 PROVIDED_TEST("Test removing puntuation, digits, and spaces") {
+    //测试空字符串
+    string str = "";
+    string res = removeNonLetters(str);
+    EXPECT_EQUAL(res, str);
+    //测试开始非字母的
+    string strr = "''Open";
+    string st = removeNonLetters(strr);
+    EXPECT_EQUAL(st, "Open");
+    //官方测试
     string s = "O'Hara";
     string result = removeNonLetters(s);
     EXPECT_EQUAL(result, "OHara");
@@ -83,7 +154,7 @@ PROVIDED_TEST("Test removing puntuation, digits, and spaces") {
 
 
 PROVIDED_TEST("Sample inputs from handout") {
-    EXPECT_EQUAL(soundex("Curie"), "C600");
+    EXPECT_EQUAL(soundex("hanrahan"), "H565");
     EXPECT_EQUAL(soundex("O'Conner"), "O256");
 }
 
